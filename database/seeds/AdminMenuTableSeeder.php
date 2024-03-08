@@ -4,8 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-
-class DatabaseSeeder extends Seeder
+class AdminMenuTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,8 +18,8 @@ class DatabaseSeeder extends Seeder
                 'parent_id' => 0,
                 'order' => 3,
                 'title' => '教师管理',
-                'icon' => '',
-                'uri' => '/teacher',
+                'icon' => 'fa-users',
+                'uri' => 'teachers',
                 'permission' => '',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -29,8 +28,8 @@ class DatabaseSeeder extends Seeder
                 'parent_id' => 0,
                 'order' => 4,
                 'title' => '学生管理',
-                'icon' => '',
-                'uri' => '/student',
+                'icon' => 'fa-graduation-cap',
+                'uri' => 'students',
                 'permission' => '',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

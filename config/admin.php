@@ -112,12 +112,16 @@ return [
 
         'controller' => App\Admin\Controllers\AuthController::class,
 
-        'guard' => 'admin',
+        'guard' => 'teacher',
 
         'guards' => [
             'admin' => [
                 'driver'   => 'session',
                 'provider' => 'admin',
+            ],
+            'teacher' => [
+                'driver'   => 'session',
+                'provider' => 'teacher',
             ],
         ],
 
@@ -125,6 +129,10 @@ return [
             'admin' => [
                 'driver' => 'eloquent',
                 'model'  => Encore\Admin\Auth\Database\Administrator::class,
+            ],
+            'teacher' => [
+                'driver' => 'eloquent',
+                'model'  => \App\Models\Teacher::class,
             ],
         ],
 
