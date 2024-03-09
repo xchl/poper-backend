@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Facades\DB;
 
 class StudentSeeder extends Seeder
 {

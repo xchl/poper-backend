@@ -112,7 +112,7 @@ return [
 
         'controller' => App\Admin\Controllers\AuthController::class,
 
-        'guard' => 'teacher',
+        'guard' => 'admin',
 
         'guards' => [
             'admin' => [

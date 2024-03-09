@@ -2,20 +2,20 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Teacher;
+use App\Models\Student;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class TeacherController extends AdminController
+class StudentController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'Teacher';
+    protected $title = 'Student';
 
     /**
      * Make a grid builder.
@@ -24,7 +24,7 @@ class TeacherController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Teacher());
+        $grid = new Grid(new Student());
 
         $grid->column('id', __('Id'));
         $grid->column('name', __('Name'));
@@ -44,7 +44,7 @@ class TeacherController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Teacher::findOrFail($id));
+        $show = new Show(Student::findOrFail($id));
 
         $show->field('id', __('Id'));
         $show->field('name', __('Name'));
@@ -63,7 +63,7 @@ class TeacherController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Teacher());
+        $form = new Form(new Student());
 
         $form->text('name', __('Name'));
         $form->text('username', __('Username'));
