@@ -22,7 +22,7 @@ class CreateAdminTables extends Migration
     public function up()
     {
         Schema::create(config('admin.database.users_table'), function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary();
             $table->string('username', 190)->unique();
             $table->string('password', 60);
             $table->string('name');
@@ -61,7 +61,7 @@ class CreateAdminTables extends Migration
 
         Schema::create(config('admin.database.role_users_table'), function (Blueprint $table) {
             $table->integer('role_id');
-            $table->integer('user_id');
+            $table->uuid('user_id');
             $table->index(['role_id', 'user_id']);
             $table->timestamps();
         });
@@ -74,7 +74,7 @@ class CreateAdminTables extends Migration
         });
 
         Schema::create(config('admin.database.user_permissions_table'), function (Blueprint $table) {
-            $table->integer('user_id');
+            $table->uuid('user_id');
             $table->integer('permission_id');
             $table->index(['user_id', 'permission_id']);
             $table->timestamps();
@@ -89,7 +89,7 @@ class CreateAdminTables extends Migration
 
         Schema::create(config('admin.database.operation_log_table'), function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->uuid('user_id');
             $table->string('path');
             $table->string('method', 10);
             $table->string('ip');

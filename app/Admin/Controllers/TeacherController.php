@@ -3,10 +3,12 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Teacher;
+use Encore\Admin\Auth\Database\Role;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Ramsey\Uuid\Uuid;
 
 class TeacherController extends AdminController
 {
@@ -70,5 +72,15 @@ class TeacherController extends AdminController
         $form->password('password', __('Password'));
 
         return $form;
+    }
+
+    public function store()
+    {
+        $form = $this->form();
+        $form->model()->id = Uuid::uuid1()->toString();
+        $form->saved(function (Form $form) {
+            $form->model()->roles()->save(Role::where('slug', 'teacher')->first());
+        });
+        $form->store();
     }
 }

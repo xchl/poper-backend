@@ -62,7 +62,7 @@ return [
 
         'namespace' => 'App\\Admin\\Controllers',
 
-        'middleware' => ['web', 'admin'],
+        'middleware' => ['web','admin', 'auth:teacher,admin'],
     ],
 
     /*
@@ -116,11 +116,11 @@ return [
 
         'guards' => [
             'admin' => [
-                'driver'   => 'session',
+                'driver'   => 'passport',
                 'provider' => 'admin',
             ],
             'teacher' => [
-                'driver'   => 'session',
+                'driver'   => 'passport',
                 'provider' => 'teacher',
             ],
         ],
@@ -128,7 +128,7 @@ return [
         'providers' => [
             'admin' => [
                 'driver' => 'eloquent',
-                'model'  => Encore\Admin\Auth\Database\Administrator::class,
+                'model'  => \App\Models\Administrator::class,
             ],
             'teacher' => [
                 'driver' => 'eloquent',
@@ -137,7 +137,7 @@ return [
         ],
 
         // Add "remember me" to login form
-        'remember' => true,
+        'remember' => false,
 
         // Redirect to the specified URI when user is not authorized.
         'redirect_to' => 'auth/login',
@@ -185,7 +185,7 @@ return [
 
         // User tables and model.
         'users_table' => 'admin_users',
-        'users_model' => Encore\Admin\Auth\Database\Administrator::class,
+        'users_model' => \App\Models\Administrator::class,
 
         // Role table and model.
         'roles_table' => 'admin_roles',

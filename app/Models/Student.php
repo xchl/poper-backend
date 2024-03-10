@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use SMartins\PassportMultiauth\HasMultiAuthApiTokens;
 
 
-class Student extends Authenticatable
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+
+class Student extends Model
 {
-    use HasMultiAuthApiTokens;
+    public $incrementing = false;
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
 }

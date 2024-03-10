@@ -14,11 +14,12 @@ class TeacherSeeder extends Seeder
     public function run()
     {
         $uuid = Uuid::uuid1();
-        DB::table('teachers')->insert([
+        $teacher = \App\Models\Teacher::create([
             'id' => $uuid->toString(),
             'name' => '张老师',
             'username' => 'zhanglaoshi',
             'password' => Hash::make('poper'),
         ]);
+        $teacher->roles()->save(\Encore\Admin\Auth\Database\Role::where('slug', 'teacher')->first());
     }
 }

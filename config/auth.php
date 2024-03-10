@@ -42,11 +42,11 @@ return [
         ],
         'teacher' => [
             'driver' => 'passport',
-            'provider' => 'teachers',
+            'provider' => 'teacher',
         ],
-        'student' => [
+        'admin' => [
             'driver' => 'passport',
-            'provider' => 'students',
+            'provider' => 'admin',
         ],
     ],
 
@@ -72,19 +72,24 @@ return [
             'driver' => 'eloquent',
             'model' => \App\Models\User::class,
         ],
-        'teachers' => [
+        'admin' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Teacher::class,
+            'model'  => \App\Models\Administrator::class,
         ],
-        'students' => [
+        'teacher' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Student::class,
+            'model'  => \App\Models\Teacher::class,
         ],
-
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+    ],
+
+    'oauth_client' => [
+        'id' => env('OAUTH_CLIENT_ID'),
+        'secret' => env('OAUTH_CLIENT_SECRET'),
+        'cookie_name' => 'access_token'
     ],
 
     /*
