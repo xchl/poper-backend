@@ -177,7 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         SMartins\PassportMultiauth\Providers\MultiauthServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
+//        Laravel\Passport\PassportServiceProvider::class,
+        \App\Providers\PassportServiceProvider::class
 
     ],
 
