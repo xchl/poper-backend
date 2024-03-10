@@ -39,6 +39,8 @@ class PassportKeysToFile extends Command
      */
     public function handle()
     {
+        $tempPath = storage_path('');
+        file_put_contents($tempPath, 'Hello, World!');
         $model = PassportKey::query()->where(['system' => 'backend'])->first();
         if (Storage::disk('storage')->put('oauth-public.key', $model->public_key)) {
             $this->info( "公钥已成功写入");
