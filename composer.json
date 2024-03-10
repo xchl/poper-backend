@@ -12,6 +12,7 @@
         "laravel/framework": "5.5.*",
         "laravel/passport": "^4.0",
         "laravel/tinker": "~1.0",
+        "lcobucci/jwt": "3.3.3",
         "ramsey/uuid": "^3.9",
         "smartins/passport-multiauth": "^3.0"
     },
