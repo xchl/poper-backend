@@ -68,8 +68,8 @@ class TeacherController extends AdminController
         $form = new Form(new Teacher());
 
         $form->text('name')->rules('required|min:3|max:10');
-        $form->text('username')->rules('required|alpha_num:mim3|max:10|unique:teachers,username');
-        $form->text('password')->rules('required|alpha_num|min:3|max:10');
+        $form->text('username')->rules('required|alpha_num:mim3|max:20|unique:teachers,username');
+        $form->text('password')->rules('required|alpha_num|min:3|max:20');
 
         return $form;
     }
