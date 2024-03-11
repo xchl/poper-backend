@@ -72,7 +72,6 @@ class StudentController extends AdminController
         $form->text('username')
             ->creationRules('required|alpha_num:mim3|max:20|unique:students,username,{{id}}')
             ->creationRules('required|alpha_num:mim3|max:20|unique:students,username');
-        $form->text('username')->rules('required|alpha_num:mim3|max:20|unique:students,username');
         $form->password('password')->rules('required|min:3');
 
         return $form;
