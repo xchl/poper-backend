@@ -69,7 +69,7 @@ class TeacherController extends AdminController
     {
         $form = new Form(new Teacher());
 
-        $form->text('name')->rules('required|min:3|max:10');
+        $form->text('name')->rules('required|min:3|max:20');
         $form->text('username')
             ->creationRules('required|alpha_num:mim3|max:20|unique:teachers,username,{{id}}')
             ->creationRules('required|alpha_num:mim3|max:20|unique:teachers,username');
