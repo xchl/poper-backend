@@ -8,6 +8,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
 
@@ -69,9 +70,9 @@ class TeacherController extends AdminController
         $form = new Form(new Teacher());
 
         $form->text('name')->rules('required|min:3|max:10');
-        $form->text('username')->rules(['required', 'alpha_num:mim3', 'max:20',
-            Rule::unique('teachers', 'username')->ignore($form->model()->id)
-        ]);
+        $form->text('username')
+            ->creationRules('required|alpha_num:mim3|max:20|unique:teachers,username,{{id}}')
+            ->creationRules('required|alpha_num:mim3|max:20|unique:teachers,username');
         $form->password('password')->rules('required|min:3');
 
         return $form;
