@@ -67,9 +67,9 @@ class StudentController extends AdminController
     {
         $form = new Form(new Student());
 
-        $form->text('name', __('Name'));
-        $form->text('username', __('Username'));
-        $form->password('password', __('Password'));
+        $form->text('name')->rules('required|min:3|max:10');
+        $form->text('username')->rules('required|alpha_num:mim3|max:10|unique:students,username');
+        $form->text('password')->rules('required|alpha_num|min:3|max:10');
 
         return $form;
     }

@@ -31,7 +31,8 @@ class Passport
             Auth::setDefaultDriver($provider);
         }
 
-        if(!$cookieValue && $request->is('oauth/token')){
+        if($request->is('oauth/token')){
+            $request->headers->remove('Authorization');
             $guard = $request->input('guard');
             $getParams = $request->query();
             $provider = config('admin.auth.guards.'.$guard.'.provider');
@@ -54,8 +55,6 @@ class Passport
             $content = json_decode($response->getContent(),1);
             $cookieAccessTokenValue = $content['access_token'].$cookieSeparator.$guard;
             $cookie = new Cookie(config('auth.oauth_client.cookie_name'),$cookieAccessTokenValue,time()+$content['expires_in']-10);
-            $response = Redirect::to('/');
-            return redirect()->intended( config('admin.route.prefix'))->withCookie($cookie);
             $response->setContent([])->withCookie($cookie);
 
             return $response;

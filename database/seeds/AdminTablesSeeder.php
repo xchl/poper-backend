@@ -21,7 +21,7 @@ class AdminTablesSeeder extends \Illuminate\Database\Seeder
         Administrator::truncate();
         $uuid = \Ramsey\Uuid\Uuid::uuid1();
         Administrator::create([
-            'id' => $uuid->toString(),
+            'id' => $uuid,
             'username' => 'admin',
             'password' => Hash::make('admin'),
             'name'     => 'Administrator',
@@ -30,12 +30,8 @@ class AdminTablesSeeder extends \Illuminate\Database\Seeder
         // create a role.
         Role::truncate();
         Role::create([
-            'name' => '管理员',
+            'name' => 'Administrator',
             'slug' => 'administrator',
-        ]);
-        $teacher = Role::create([
-            'name' => '教师',
-            'slug' => 'teacher',
         ]);
 
         // add role to user.
@@ -74,17 +70,9 @@ class AdminTablesSeeder extends \Illuminate\Database\Seeder
                 'http_method' => '',
                 'http_path'   => "/auth/roles\r\n/auth/permissions\r\n/auth/menu\r\n/auth/logs",
             ],
-            [
-                'name'        => 'student management',
-                'slug'        => 'student.management',
-                'http_method' => '',
-                'http_path'   => "/students",
-            ],
         ]);
 
-        $teacher->permissions()->save(Permission::find(2));
-        $teacher->permissions()->save(Permission::find(3));
-        $teacher->permissions()->save(Permission::find(6));
+        Role::first()->permissions()->save(Permission::first());
 
         // add default menus.
         Menu::truncate();
@@ -138,25 +126,10 @@ class AdminTablesSeeder extends \Illuminate\Database\Seeder
                 'icon'      => 'fa-history',
                 'uri'       => 'auth/logs',
             ],
-            [
-                'parent_id' => 0,
-                'order' => 3,
-                'title' => '教师管理',
-                'icon' => 'fa-users',
-                'uri' => 'teachers',
-            ],
-            [
-                'parent_id' => 0,
-                'order' => 4,
-                'title' => '学生管理',
-                'icon' => 'fa-graduation-cap',
-                'uri' => 'students',
-            ]
         ]);
 
         // add role to menu.
         Menu::find(2)->roles()->save(Role::first());
-        Menu::query()->where(['uri'=>'students'])->first()->roles()->save(Role::where(['slug'=>'teacher'])->first());
     }
 
 }

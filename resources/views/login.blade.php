@@ -36,7 +36,7 @@
     <div class="login-box-body">
         <p class="login-box-msg">{{ trans('admin.login') }}</p>
 
-        <form action="{{ admin_url('oauth/token') }}" method="post">
+        <form action="{{ admin_url('oauth/token') }}" method="post" id="loginForm">
             <div class="form-group has-feedback {!! !$errors->has('username') ?: 'has-error' !!}">
 
                 @if($errors->has('username'))
@@ -62,11 +62,11 @@
             <div class="row" style="padding-left: 20px;margin-bottom: 10px">
                 <div style="margin-bottom: 5px;font-size: 16px">请选择：</div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="guard" id="inlineRadio1" value="teacher">
+                    <input class="form-check-input" type="radio" required name="guard" id="inlineRadio1" value="teacher">
                     <label class="form-check-label" for="inlineRadio1">我是老师</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="guard" id="inlineRadio2" value="admin">
+                    <input class="form-check-input" type="radio" required name="guard" id="inlineRadio2" value="admin">
                     <label class="form-check-label" for="inlineRadio2">我是管理员</label>
                 </div>
             </div>
@@ -84,7 +84,7 @@
                 <!-- /.col -->
                 <div class="col-xs-4">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('admin.login') }}</button>
+                    <button type="button" id="sub" class="btn btn-primary btn-block btn-flat">{{ trans('admin.login') }}</button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -108,7 +108,32 @@
       radioClass: 'iradio_square-blue',
       increaseArea: '20%' // optional
     });
+    let sub = false;
+    $('#sub').click(function () {
+      if(sub)return;
+      sub = true;
+      let form = $('#loginForm');
+      let formData = form.serializeArray();
+      $.ajax({
+        url: form.attr("action"),
+        type: form.attr("method"),
+        data: formData,
+        dataType: 'json',
+        success: function (data) {
+          window.location = '/';
+        },
+        error: function (jqXHR) {
+          sub=0;
+          let errorData = JSON.parse(jqXHR.responseText);
+          alert(errorData.message)
+        }
+      });
+    });
+    $('form').submit(function () {
+      return false;
+    });
   });
+
 </script>
 </body>
 </html>

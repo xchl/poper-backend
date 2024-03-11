@@ -67,9 +67,9 @@ class TeacherController extends AdminController
     {
         $form = new Form(new Teacher());
 
-        $form->text('name', __('Name'));
-        $form->text('username', __('Username'));
-        $form->password('password', __('Password'));
+        $form->text('name')->rules('required|min:3|max:10');
+        $form->text('username')->rules('required|alpha_num:mim3|max:10|unique:teachers,username');
+        $form->text('password')->rules('required|alpha_num|min:3|max:10');
 
         return $form;
     }
@@ -81,6 +81,6 @@ class TeacherController extends AdminController
         $form->saved(function (Form $form) {
             $form->model()->roles()->save(Role::where('slug', 'teacher')->first());
         });
-        $form->store();
+        return $form->store();
     }
 }
